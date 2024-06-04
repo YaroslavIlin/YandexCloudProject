@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block title %}Список авто{% endblock title %}
+
+{% block content %}
+  <h2 class="titlex">Список авто</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Авто</th>
+        <th>Тип авто</th>
+        <th>Статус</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for auto in autos %}
+      <tr>
+        <td><a class="linky"href="{% url 'auto_detail' auto.pk %}">{{ auto.auto_number }}</a></td>
+        <td>{{ auto.auto_type }} </td>
+        <td>{% if auto.is_booked_now %}<span style="color:red;">Арендовано</span>{% else %}<span style="color:green;">Свободно</span>{% endif %}</a></td>
+        {% empty %}
+        <p>Записи не найдены <a href="{% url 'auto_create' %}" class="linky">Добавить авто </a></p>
+        {% endfor %}
+      </tr>
+    </tbody>
+  </table>
+{% endblock %}

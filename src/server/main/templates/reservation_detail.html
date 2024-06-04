@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title %}Подробная информация об аренде{% endblock %}
+
+
+{% block content %}
+  <h2 class="titlex">Детали аренды</h2>
+  <p>Авто: {{ reservation.auto.auto_number }}</p>
+  <p>Арендатор: {{ reservation.tenant.first_name }}</p>
+  <p>Дата начала аренды: {{ reservation.rent_start_date }}</p>
+  <p>Дата конца аренды: {{ reservation.rent_end_date }}</p>
+  <p>Дополнительные сведения: {{ reservation.additional|linebreaks }}</p>
+  <a class="linkx" href="{% url 'reservation_update' reservation.id %}">Обновить</a>
+  {% endblock %}

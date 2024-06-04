@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title %}Tenant List{% endblock title %}
+
+{% block content %}
+  <h2 class="titlex">Список арендаторов</h2>
+  <ul class="listx">
+    {% for tenant in tenants %}
+      <li class="itemx"><a class="linky" href="{% url 'tenant_detail' tenant.pk %}">{{ tenant.id }} | {{ tenant.first_name }} {{ tenant.last_name }}</a></li>
+    {% empty %}
+    <p>Запись не найдена <a href="{% url 'tenant_create' %}" class="linky">Добавить арендатора</a></p>
+      {% endfor %}
+  </ul>
+{% endblock content %}

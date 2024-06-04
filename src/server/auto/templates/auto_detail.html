@@ -1,0 +1,38 @@
+<!-- auto_detail.html -->
+{% extends 'base.html' %}
+
+{% block title %}Подробности об авто{% endblock title %}
+
+{% block content %}
+  <h2 class="titlex">Информация об авто</h2>
+  <p>Авто: {{ auto.auto_number }}</p>
+  <p>Тип авто: {{ auto.auto_type }}</p>
+  <p>Цена за день: ₹ {{ auto.price_per_day }}</p>
+  <h3 class="titlex">Предстоящие бронирования</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>Арендатор</th>
+        <th>Дата начала аренды</th>
+        <th>Дата конца аренды</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for reservation in reservations %}
+        <tr>
+          <td><a href="{% url 'tenant_detail' reservation.tenant.pk %}">{{ reservation.tenant.first_name }} {{ reservation.tenant.last_name }}</a></td>
+          <td>{{ reservation.check_in_date }}</td>
+          <td>{{ reservation.check_out_date }}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <a class="linkx" href="{% url 'reservation_list'  %}?auto_number={{ auto.auto_number }}">Все бронирования</a>
+
+  <h3 class="titlex">Статус бронирования</h3>
+  {% if auto.is_booked_now %}
+    <p>В настоящее время авто арендовано</p>
+  {% else %}
+    <p>В настоящее время авто свободно</p>
+  {% endif %}
+{% endblock content %}

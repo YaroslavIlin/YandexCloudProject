@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block title %} Tenant Detail {% endblock title %}
+{% block content %}
+<h2 class="titlex">Информация о арендаторе</h2>
+  <p>Имя: {{ tenant.first_name }} {{ tenant.last_name }}</p>
+  <p>Email: {{ tenant.email }}</p>
+  <p>Номер телефона: {{ tenant.phone_number }}</p>
+    <p>Адрес: {{ tenant.address }}</p>
+      <p>Паспорт РФ: {{ tenant.government_id }}</p>
+  <a class="linkx" href="{% url 'reservation_create' %}?tenant_id={{ tenant.id }}">Забронировать</a>
+
+  {% endblock content %}

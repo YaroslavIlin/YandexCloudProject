@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block title %}Dashboard{% endblock title %}
+{% block content %}
+  <h2 class="titlex">CaRental</h2>
+
+  <div class="dashboard">
+    <div class="card">
+        <h2 class="titlex">Авто</h2>
+        <p>{{ total_auto }}</p>
+    </div>
+
+    <div class="card">
+        <h2 class="titlex">Все арендаторы</h2>
+        <p>{{ total_tenant }}</p>
+    </div>
+
+    <div class="card">
+        <h2 class="titlex">Все бронирования</h2>
+        <p>{{ total_reservation }}</p>
+    </div>
+</div>
+
+{% endblock %}

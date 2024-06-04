@@ -1,0 +1,83 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %} {% endblock title %} | Управление сервисом аренды авто</title>
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+</head>
+<body>
+    <header>
+        <h1>CaRental</h1>
+    </header>
+
+<nav>
+    <ul>
+        <li><a href="{% url 'dashboard' %}">Дашборд</a></li>
+        {% if user.is_authenticated %}
+        <li><a href="{% url 'auto_list' %}">Список авто</a></li>
+        <li><a href="{% url 'tenant_list' %}">Список арендаторов</a></li>
+        <li><a href="{% url 'reservation_list' %}">Список бронирований</a></li>
+        <li><a href="{% url 'auto_create' %}">Добавить авто</a></li>
+        <li><a href="{% url 'tenant_create' %}">Добавить арендатора</a></li>
+        <li><a href="{% url 'reservation_create' %}">Добавить бронирование</a></li>
+        <li><a href="{% url 'profile' %}">Профиль</a></li>
+        <li><a href="{% url 'logout'%}?next={% url 'login' %}">Выйти из системы</a></li>
+        {% else %}
+        <li><a href="{% url 'login'%}?next={{request.path}}">Авторизоваться</a></li>
+        {% endif %}
+    </ul>
+</nav>
+
+
+    <main>
+        {% block content %}
+        {% endblock %}
+        {% block pagination %}
+    {% if is_paginated %}
+        <ul class="pagination">
+
+            {% if page_obj.has_previous %}
+                <li class="page-item">
+                    <a class="page-link" href="{{ request.path }}?page={{ page_obj.previous_page_number }}" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="{{ request.path }}?page={{ page_obj.previous_page_number }}">
+                        {{ page_obj.previous_page_number }}
+                    </a>
+                </li>
+            {% endif %}
+
+            <li class="page-item">
+                <a class="page-link active" href="#">
+                    {{ page_obj.number }}
+                </a>
+            </li>
+
+            {% if page_obj.has_next %}
+                <li class="page-item">
+                    <a class="page-link" href="{{ request.path }}?page={{ page_obj.next_page_number }}">
+                        {{ page_obj.next_page_number }}
+                    </a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="{{ request.path }}?page={{ page_obj.next_page_number }}" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            {% endif %}
+
+        </ul>
+    {% endif %}
+{% endblock %}
+
+    </main>
+
+    <footer>
+        &#169; создано <a class="linky" href="">NeuroTalk</a>
+    </footer>
+</body>
+</html>
